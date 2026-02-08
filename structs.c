@@ -16,11 +16,11 @@ typedef struct DllNode{
 }DllNode;
 
 //Binary Tree
-typedef struct BtsNode{
+typedef struct BstNode{
     int value;
-    struct BtsNode* left;
-    struct BtsNode* right;
-} BtsNode;
+    struct BstNode* left;
+    struct BstNode* right;
+} BstNode;
 
 //Graph
 typedef struct Edge Edge;
@@ -179,28 +179,62 @@ void dlltest(){
 }
 
 
-void btsnodecreate(BtsNode** root, int value){
-    BtsNode* n = malloc(sizeof(BtsNode));
+void bstnodecreate(BstNode** root, int value){
+    BstNode* n = malloc(sizeof(BstNode));
     if(n == NULL){return;}
     
     n->value = value;
     n->left = NULL;\
     n->right = NULL;
 
+    if(!(*root)){(*root) = n; return;}
 
-    if((*root) == NULL){(*root) = n; root;}
-
-    BtsNode* Linker = NULL;
-
+    BstNode* curr = (*root);
+    BstNode* prev = NULL;
+    
     while(curr != NULL){
-        if(n->value > curr->value){
-            
+        prev = curr;
+        if(n->value >= curr->value){
+            curr = curr->right;
+        }else{
+            curr = curr->left;
         }
-
     }
-
+    if(prev->value > n->value){
+        prev->left = n;
+    }else{
+        prev->right = n;
+    }
 }
 
+void bstprint(BstNode* root){
+    if(root->left){
+        bstprint(root->left);
+    }
+    printf("\n%d",root->value);
+    if(root->right){
+        bstprint(root->right);
+    }
+    return;
+}
+
+
+
+void bsttest(){
+    printf("\nStarting BST Test");
+    BstNode* root = NULL;
+    bstnodecreate(&root, 5);
+    bstnodecreate(&root, 7);
+    bstnodecreate(&root, 3);
+    bstnodecreate(&root, 6);
+    bstnodecreate(&root, 2);
+    bstnodecreate(&root, 4);
+    bstnodecreate(&root, 1);
+    bstnodecreate(&root, 8);
+    bstprint(root);
+    
+    printf("\nEnd of BST Test"); 
+}
 
 
 
@@ -208,5 +242,6 @@ void btsnodecreate(BtsNode** root, int value){
 int main(){
     slltest();
     dlltest();
+    bsttest();
     return 0;
 }
