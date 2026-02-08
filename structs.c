@@ -220,6 +220,26 @@ void bstprint(BstNode* root){
 
 
 
+void bstsearch(BstNode* root, int target){
+    if(root == NULL){printf("\nNot Found: %d",target);}
+    else if(root->value == target){printf("\nFound:   %d", target);return;}
+
+    if(root->value > target && root->left){
+        bstsearch(root->left, target);
+        //printf("\nMoving left for %d",target);
+    }else if (root->value < target && root->right){
+        bstsearch(root->right, target);
+        //printf("\nMoving right for %d",target);
+    }else{
+        printf("\nNot Found:    %d", target);
+    }
+    //printf("\nNot Found:    %d", target);
+    return;
+}
+
+
+
+
 void bsttest(){
     printf("\nStarting BST Test");
     BstNode* root = NULL;
@@ -232,6 +252,9 @@ void bsttest(){
     bstnodecreate(&root, 1);
     bstnodecreate(&root, 8);
     bstprint(root);
+    bstsearch(root, 4);
+    bstsearch(root, 8);
+    bstsearch(root, 9);
     
     printf("\nEnd of BST Test"); 
 }
