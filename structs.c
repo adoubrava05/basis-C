@@ -139,6 +139,7 @@ void dllprint(DllNode* root){
     return;
 }
 void dlldelete(DllNode** root, int target){
+    printf("\nDeleting %d", target);
     if((*root) == NULL){printf("\nEmpty List");return;}
     DllNode* curr = (*root);
     if((*root)->value == target){
@@ -150,7 +151,7 @@ void dlldelete(DllNode** root, int target){
         while(curr && curr->value != target){
             curr = curr->next;
         }
-        if(!curr){printf("\nValue not present");return;}
+        if(!curr){printf("\n%d not present", target);return;}
         
         DllNode* prev = curr->prev;
         DllNode* next = curr->next;
@@ -211,13 +212,13 @@ void bstprint(BstNode* root){
     if(root->left){
         bstprint(root->left);
     }
-    printf("\n%d",root->value);
+    printf("\nValue of Node is: %d",root->value);
     if(root->right){
         bstprint(root->right);
     }
     return;
 }
-
+ 
 
 
 void bstsearch(BstNode* root, int target){
@@ -233,7 +234,6 @@ void bstsearch(BstNode* root, int target){
     }else{
         printf("\nNot Found:    %d", target);
     }
-    //printf("\nNot Found:    %d", target);
     return;
 }
 
