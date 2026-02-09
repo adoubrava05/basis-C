@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//Defines both a normal and a double linked list, Binary Search Tree, and a Graph
+//Includes Add Node, Prrint, Search for a Value, and Delete Nodes
 
 //Single Linked List
 typedef struct SllNode{
@@ -169,7 +170,7 @@ void dlltest(){
     dllcreateNode(&root, 3);
     dllcreateNode(&root, 4);
     dllcreateNode(&root, 7);
-    printf("\nRoot Value: %d", root->next->next->next->next->prev->prev->prev->prev->value);
+    printf("\nRoot Value: %d", root->value);
     dllprint(root);
     dlldelete(&root,3);
     dlldelete(&root, 1);
@@ -237,7 +238,45 @@ void bstsearch(BstNode* root, int target){
     return;
 }
 
+void bstdelete(BstNode** root, int target){
+    if((*root) == NULL){return;}
+    if ((*root)->value == target) {
+    BstNode* tmp = *root;
 
+    if ((*root)->left == NULL && (*root)->right == NULL) {
+        *root = NULL;
+        free(tmp);
+        return;
+    }
+
+    if ((*root)->left == NULL) {
+        *root = (*root)->right;
+        free(tmp);
+        return;
+    }
+
+     if ((*root)->right == NULL) {
+        *root = (*root)->left;
+        free(tmp);
+        return;
+    }
+
+
+    BstNode* succ = (*root)->right;
+    while (succ->left != NULL) succ = succ->left;
+
+    (*root)->value = succ->value;                 // copy value up
+    bstdelete(&(*root)->right, succ->value);      // delete successor node in right subtree
+    return;
+    }
+    
+    if((*root)->value > target){
+        bstdelete(&(*root)->left, target);
+    }else{
+        bstdelete(&(*root)->right, target);
+    }
+
+}
 
 
 void bsttest(){
@@ -255,6 +294,10 @@ void bsttest(){
     bstsearch(root, 4);
     bstsearch(root, 8);
     bstsearch(root, 9);
+    bstdelete(&root, 6);
+    bstdelete(&root, 5);
+    bstdelete(&root, 9);
+    bstprint(root);
     
     printf("\nEnd of BST Test"); 
 }
