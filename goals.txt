@@ -1,0 +1,5 @@
+Basic calc (Take string and output int)
+BrainFuck interpreter
+Binary Tree                             [Done]
+Learn how "printing" works
+Emulate "this (C++ command)" in C
