@@ -24,7 +24,8 @@ void createNum(fibNum** num, int i){
 }
 
 int main(){
-    fibNum* num;
+    fibNum* num = malloc(sizeof(fibNum));
+    if(num == NULL){printf("MALLOC ERROR RETURNING");return 0;}
     mpz_inits(num->prev1, num->prev2, NULL);
 
     mpz_set_ui(num->prev1, 1);
